@@ -25,6 +25,7 @@ void zltBiTreeClean(void *tree, zltBiTreeDtor *dtor);
 // constructors and destructors end
 
 // iterators begin
+/// @param tree requires not null
 /// @param side -1 top, 0 left, 1 right
 void *zltBiTreeMostSide(const void *tree, int side);
 

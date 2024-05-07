@@ -13,15 +13,23 @@ int zltIsHexDigitChar(int c) {
   return -1;
 }
 
-void zltMemSwap(void *a, void *b, size_t size) {
-  for (; size >= sizeof(int); a += sizeof(int), b += sizeof(int), size -= sizeof(int)) {
-    int c = *(int *) a;
-    *(int *) a = *(int *) b;
-    *(int *) b = c;
-  }
+static inline void memSwapChar(char *a, char *b, size_t size) {
   for (; size; ++a, ++b, --size) {
-    char c = *(char *) a;
-    *(char *) a = *(char *) b;
-    *(char *) b = c;
+    char c = *a;
+    *a = *b;
+    *b = c;
   }
+}
+
+static inline void memSwapInt(int *a, int *b, size_t size) {
+  for (; size >= sizeof(int); ++a, ++b, size -= sizeof(int)) {
+    int c = *a;
+    *a = *b;
+    *b = c;
+  }
+  memSwapChar((char *) a, (char *) b, size);
+}
+
+void zltMemSwap(void *a, void *b, size_t size) {
+  memSwapInt((int *) a, (int *) b, size);
 }
