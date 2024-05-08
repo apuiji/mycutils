@@ -10,9 +10,11 @@ typedef struct {
   void *rchd;
 } zltBiTree;
 
+#define zltBiTreeMemb(p, m) zltMemb(p, zltBiTree, m)
+
 // constructors and destructors begin
 static inline zltBiTree zltBiTreeMake(const void *parent) {
-  return (zltBiTree) { (void *) parent, NULL, NULL };
+  return (zltBiTree) { .parent = (void *) parent, .lchd = NULL, .rchd = NULL };
 }
 
 static inline void zltBiTreeSwap(void *a, void *b) {
@@ -43,8 +45,7 @@ void *zltBiTreeXYN(const void *tree, int xy);
 // iterators end
 
 /// @param tree requires not null and has child on side which another of rotation
-/// @param side 0 left, 1 right
-void *zltBiTreeRotate(void *tree, int side);
+void *zltBiTreeRotate(void *tree, bool right);
 
 // find operations begin
 typedef int zltBiTreeCmpForFind(const void *data, const void *tree);
