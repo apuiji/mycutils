@@ -4,9 +4,11 @@ void zltBiTreeClean(void *tree, zltBiTreeDtor *dtor) {
   if (!tree) {
     return;
   }
-  zltBiTreeClean(zltBiTreeMemb(tree, lchd), dtor);
-  zltBiTreeClean(zltBiTreeMemb(tree, rchd), dtor);
+  void *lchd = zltBiTreeMemb(tree, lchd);
+  void *rchd = zltBiTreeMemb(tree, rchd);
   dtor(tree);
+  zltBiTreeClean(lchd, dtor);
+  zltBiTreeClean(rchd, dtor);
 }
 
 void *zltBiTreeMostSide(const void *tree, int side) {
