@@ -18,4 +18,11 @@ typedef struct {
   size_t size;
 } zltString;
 
+static inline zltString zltStringMake(const char *data, size_t size) {
+  return (zltString) { .data = data, .size = size };
+}
+
+/// @param data requires string constant literal
+#define zltStringMakeStatic(data) zltStringMake(data, sizeof(data))
+
 #endif
