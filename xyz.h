@@ -13,4 +13,9 @@ int zltIsHexDigitChar(int c);
 
 void zltMemSwap(void *a, void *b, size_t size);
 
+typedef struct {
+  const char *data;
+  size_t size;
+} zltString;
+
 #endif
