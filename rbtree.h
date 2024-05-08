@@ -4,7 +4,7 @@
 #include"bitree.h"
 
 typedef struct {
-  zltBiTree base;
+  zltBiTree biTree;
   bool red;
 } zltRBTree;
 
