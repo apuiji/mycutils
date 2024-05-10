@@ -9,7 +9,7 @@ typedef struct {
 
 #define zltLinkMemb(p, m) zltMemb(p, zltLink, m)
 
-typedef zltLinkDtor(void *link);
+typedef void zltLinkDtor(void *link);
 
 void zltLinkClean(void *link, zltLinkDtor *dtor);
 

@@ -13,7 +13,7 @@ void zltBiTreeClean(void *tree, zltBiTreeDtor *dtor) {
 
 void *zltBiTreeMostSide(const void *tree, int side) {
   void *next = zltBiTreeMemb(tree, children)[side];
-  return next ? zltBiTreeMostSide(next, side) : tree;
+  return next ? zltBiTreeMostSide(next, side) : (void *) tree;
 }
 
 // iterators begin
@@ -95,9 +95,9 @@ void *zltBiTreeFind(const void *tree, zltBiTreeCmpForFind *cmp, const void *data
   }
   int diff = cmp(data, tree);
   if (!diff) {
-    return tree;
+    return (void *) tree;
   }
-  void *next = zltTreeMemb(tree, children)[diff > 0];
+  void *next = zltBiTreeMemb(tree, children)[diff > 0];
   return zltBiTreeFind(next, cmp, data);
 }
 

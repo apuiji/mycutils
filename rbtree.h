@@ -8,11 +8,11 @@ typedef struct {
   bool red;
 } zltRBTree;
 
-#define zltRBTreeMemb(p, m) zltMemb(p, RBTree, m)
+#define zltRBTreeMemb(p, m) zltMemb(p, zltRBTree, m)
 
 // constructors and destructors begin
 static inline zltRBTree zltRBTreeMake(const void *parent) {
-  return (zltRBTree) { .base = zltBiTreeMake(parent), .red = true };
+  return (zltRBTree) { .biTree = zltBiTreeMake(parent), .red = true };
 }
 
 static inline void zltRBTreeSwap(void *a, void *b) {

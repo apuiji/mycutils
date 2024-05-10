@@ -110,7 +110,7 @@ void beforeErase2(void **root, void *node, void *child) {
 void beforeErase3(void **root, void *node) {
   void *parent = zltBiTreeMemb(node, parent);
   void *sibling = zltBiTreeMemb(parent, children)[node == zltBiTreeMemb(parent, lchd)];
-  (sibling && zltRBTreeMemb(sibling, red) ? beforeErase3 : beforeErase4)(root, node, sibling, parent);
+  (sibling && zltRBTreeMemb(sibling, red) ? beforeErase4 : beforeErase5)(root, node, sibling, parent);
 }
 
 //   PB         SR        SB

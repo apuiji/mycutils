@@ -1,4 +1,5 @@
 #include<ctype.h>
+#include<math.h>
 #include"string.h"
 
 int zltIsBasedDigitChar(int c, size_t base) {
@@ -17,7 +18,7 @@ int zltIsBasedDigitChar(int c, size_t base) {
     }
     return -1;
   }
-  return zltIsDigitChar(c, base);
+  return zltIsDigitChar(c);
 }
 
 zltString zltStrTrimStart(zltString str) {
@@ -30,7 +31,7 @@ zltString zltStrTrimStart(zltString str) {
 }
 
 zltString zltStrTrimEnd(zltString str) {
-  const char *it = src.data + src.size - 1;
+  const char *it = str.data + str.size - 1;
   size_t left = str.size;
   for (; left && isspace(*it); --it, --left) {
     // do nothing
@@ -60,8 +61,12 @@ zltString zltStrToLong(long *dest, zltString src, size_t base) {
 }
 
 zltString zltStrToUnsignedLong(unsigned long *dest, zltString src, size_t base) {
-  for (; src.size && isdigit(*src.data); src = zltStrForward(src, 1)) {
-    *dest = (*dest * base) | (*src.data - '0');
+  for (; src.size; src = zltStrForward(src, 1)) {
+    int i = zltIsBasedDigitChar(*src.data, base);
+    if (i < 0) {
+      break;
+    }
+    *dest = (*dest * base) | (i - '0');
   }
   return src;
 }
@@ -102,7 +107,7 @@ zltString strtoud1(double *dest, zltString src) {
   }
   if (isdigit(*src.data)) {
     unsigned long l = 0;
-    zltString s = zltStrToUnsignedLong(&l, src);
+    zltString s = zltStrToUnsignedLong(&l, src, 10);
     *dest += l;
     return s.size && *s.data == '.' ? strtoud2(dest, zltStrForward(s, 1)) : s;
   }
@@ -114,7 +119,7 @@ zltString strtoud1(double *dest, zltString src) {
 
 zltString strtoud2(double *dest, zltString src) {
   unsigned long l = 0;
-  zltString s = zltStrToUnsignedLong(&l, src);
+  zltString s = zltStrToUnsignedLong(&l, src, 10);
   *dest += l / pow(10, src.size - s.size);
   return s;
 }
@@ -127,7 +132,7 @@ zltString strtoud3(double *dest, zltString src) {
     return src;
   }
   long e = 0;
-  zltString s = zltStrToLong(&e, zltStrForward(src, 1));
+  zltString s = zltStrToLong(&e, zltStrForward(src, 1), 10);
   if (src.size - s.size == 1) {
     return src;
   }
