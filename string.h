@@ -22,6 +22,10 @@ static inline zltString zltStrMake(const char *data, size_t size) {
   return (zltString) { .data = data, .size = size };
 }
 
+static inline zltString zltStrMakeBE(const char *begin, const char *end) {
+  return zltStrMake(begin, end - begin);
+}
+
 /// @param data requires string constant literal
 #define zltStrMakeStatic(data) zltStringMake(data, sizeof(data))
 
