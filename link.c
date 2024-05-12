@@ -6,7 +6,7 @@ void zltLinkClean(void *link, const void *end, zltLinkDtor *dtor) {
   }
   void *next = zltLinkMemb(link, next);
   dtor(link);
-  zltLinkClean(next, dtor);
+  zltLinkClean(next, dtor, end);
 }
 
 void **zltLinkInsert(void **dest, void *link, void *last) {
