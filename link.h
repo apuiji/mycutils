@@ -11,7 +11,7 @@ typedef struct {
 
 typedef void zltLinkDtor(void *link);
 
-void zltLinkClean(void *link, zltLinkDtor *dtor);
+void zltLinkClean(void *link, const void *end, zltLinkDtor *dtor);
 
 typedef struct {
   void *next;
