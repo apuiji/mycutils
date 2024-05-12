@@ -1,13 +1,15 @@
 include Makefile
 
-linuxdbg/libmycutils.a: $(addprefix linuxdbg/, ${OBJS})
+DEST = linuxdbg
+
+${DEST}/libmycutils.a: $(addprefix ${DEST}/, ${OBJS})
 	ar -rsv $@ $^
 
-linuxdbg/%.o: %.c ${HEADS}
+${DEST}/%.o: %.c ${HEADS}
 	gcc $< -c -g -O2 -o $@
 
 clean:
-	touch linuxdbg/libmycutils.a linuxdbg/a.o
-	rm linuxdbg/libmycutils.a linuxdbg/*.o
+	touch ${DEST}/libmycutils.a ${DEST}/a.o
+	rm ${DEST}/libmycutils.a ${DEST}/*.o
 
 .PHONY: clean

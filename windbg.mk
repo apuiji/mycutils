@@ -1,15 +1,17 @@
 include Makefile
 
-windbg/libmycutils.dll.a: $(addprefix windbg/, ${OBJS})
+DEST = windbg
+
+${DEST}/libmycutils.dll.a: $(addprefix ${DEST}/, ${OBJS})
 	ar -rsv $@ $^
 
-windbg/%.o: %.c ${HEADS}
+${DEST}/%.o: %.c ${HEADS}
 	gcc $< -c -g -O2 -o $@
 
 clean:
-	echo>windbg/libmycutils.dll.a
-	echo>windbg/a.o
-	del windbg\libmycutils.dll.a
-	del windbg\*.o
+	echo>${DEST}/libmycutils.dll.a
+	echo>${DEST}/a.o
+	del ${DEST}\libmycutils.dll.a
+	del ${DEST}\*.o
 
 .PHONY: clean
