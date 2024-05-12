@@ -8,3 +8,17 @@ void zltLinkClean(void *link, const void *end, zltLinkDtor *dtor) {
   dtor(link);
   zltLinkClean(next, dtor);
 }
+
+void **zltLinkInsert(void **dest, void *link, void *last) {
+  void **next = &zltMemb(last, zltLink, next);
+  *next = *dest;
+  *dest = link;
+  return next;
+}
+
+void *zltLinkErase(void **link, void *last) {
+  void *a = *link;
+  *link = zltMemb(last, zltLink, next);
+  zltMemb(last, zltLink, next) = NULL;
+  return a;
+}
