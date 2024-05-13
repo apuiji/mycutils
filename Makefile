@@ -1,2 +1,2 @@
-HEADS = bitree.h link.h rbtree.h string.h strtree.h xyz.h
-OBJS = bitree.o link.o rbtree.o string.o strtree.o xyz.o
+HEADS = bitree.h link.h rbtree.h stack.h string.h strtree.h xyz.h
+OBJS = bitree.o link.o rbtree.o stack.o string.o strtree.o xyz.o

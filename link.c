@@ -6,19 +6,18 @@ void zltLinkClean(void *link, const void *end, zltLinkDtor *dtor) {
   }
   void *next = zltLinkMemb(link, next);
   dtor(link);
-  zltLinkClean(next, dtor, end);
+  zltLinkClean(next, end, dtor);
 }
 
 void **zltLinkInsert(void **dest, void *link, void *last) {
-  void **next = &zltMemb(last, zltLink, next);
-  *next = *dest;
+  zltLinkMemb(last, next) = *dest;
   *dest = link;
-  return next;
+  return &zltLinkMemb(last, next);
 }
 
 void *zltLinkErase(void **link, void *last) {
   void *a = *link;
-  *link = zltMemb(last, zltLink, next);
-  zltMemb(last, zltLink, next) = NULL;
+  *link = zltLinkMemb(last, next);
+  zltLinkMemb(last, next) = NULL;
   return a;
 }
