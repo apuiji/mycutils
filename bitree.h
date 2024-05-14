@@ -44,7 +44,7 @@ void *zltBiTreeXNY(const void *tree, int xy);
 void *zltBiTreeXYN(const void *tree, int xy);
 // iterators end
 
-/// @param tree requires not null and has child on side which another of rotation
+/// @param tree requires not null and has child on side rightabout rotation
 void *zltBiTreeRotate(void *tree, bool right);
 
 // find operations begin

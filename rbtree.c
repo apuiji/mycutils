@@ -7,6 +7,7 @@ static void afterInsert2(void **root, void *node, void *parent, void *gparent);
 void zltRBTreeAfterInsert(void **root, void *node) {
   void *parent = zltBiTreeMemb(node, parent);
   if (!parent) {
+    zltRBTreeMemb(node, red) = false;
     *root = node;
     return;
   }
@@ -14,7 +15,7 @@ void zltRBTreeAfterInsert(void **root, void *node) {
     return;
   }
   void *gparent = zltBiTreeMemb(parent, parent);
-  void *uncle = zltBiTreeMemb(parent, children)[parent == zltBiTreeMemb(gparent, lchd)];
+  void *uncle = zltBiTreeMemb(gparent, children)[parent == zltBiTreeMemb(gparent, lchd)];
   if (uncle && zltRBTreeMemb(uncle, red)) {
     zltRBTreeMemb(parent, red) = false;
     zltRBTreeMemb(uncle, red) = false;
@@ -45,11 +46,11 @@ void afterInsert1(void **root, void *node, void *parent, void *gparent) {
 }
 
 //   GB        GB        __NR__        __NB__
-//  /  \      /  \      /      \      /      \
+//  /  \      /  \      /      \      /      \_
 // PR  UB -> NR  UB -> PR      GB -> PR      GR
-//   \      /  \         \    /  \     \    /  \
+//   \      /  \         \    /  \     \    /  \_
 //   NR    PR  YB        XB  YB  UB    XB  YB  UB
-//  /  \     \
+//  /  \     \_
 // XB  YB    XB
 void afterInsert2(void **root, void *node, void *parent, void *gparent) {
   int left = node == zltBiTreeMemb(parent, lchd);
@@ -100,6 +101,7 @@ void beforeErase1(void **root, void *node) {
 void beforeErase2(void **root, void *node, void *child) {
   void *parent = zltBiTreeMemb(node, parent);
   zltBiTreeMemb(child, parent) = parent;
+  zltRBTreeMemb(child, red) = false;
   if (!parent) {
     *root = child;
   } else {
