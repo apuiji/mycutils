@@ -152,7 +152,7 @@ void beforeErase5(void **root, void *node, void *sibling, void *parent) {
 }
 
 //   PC        PC         __XR__        __XC__
-//  /  \      /  \       /      \      /      \
+//  /  \      /  \       /      \      /      \_
 // NB  SB -> NB  XR  -> PC      SB -> PB      SB
 //    /         /  \   /  \    /     /  \    /
 //   XR        UB  SB NB  UB  VB    NB  UB  VB
